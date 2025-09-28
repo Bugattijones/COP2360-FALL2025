@@ -1,0 +1,64 @@
+using System;
+
+// SimpleLogger class added to fix CS0103
+public static class SimpleLogger
+{
+    public static void Log(string message, string level = "INFO")
+    {
+        Console.WriteLine($"[{level}] {message}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        bool done = false;
+        SimpleLogger.Log("SimplyDivide V1.0 Boot Successful"); // log start
+        SimpleLogger.Log("Timestamp: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")); // log timestamp)
+        SimpleLogger.Log("Status: All conditions normal"); // log status
+        while (!done) // keep looping until division succeeds
+        {
+            try
+            {
+                Console.Write("Input first digit: ");
+                int num1 = Convert.ToInt32(Console.ReadLine());
+                SimpleLogger.Log($"First digit accepted:########{num1}");
+
+                Console.Write("Input second digit: ");
+                int num2 = Convert.ToInt32(Console.ReadLine());
+                SimpleLogger.Log($"Second digit accepted:#######{num2}");
+
+                int result = num1 / num2;
+                Console.WriteLine($"Result: {result}");
+                SimpleLogger.Log($"Division result:#############{result}");
+
+                done = true; // success, exit loop
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid input. Please enter a digit.");
+                SimpleLogger.Log("##################User input was not a valid number", "ERROR");
+            }
+
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Error: Sorry you can not divide by 0. Please try again with a valid digit");
+                SimpleLogger.Log("###################Attempted division by zero", "ERROR");
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("Error: The digit you entered is either too LARGE or too SMALL.");
+                SimpleLogger.Log("###################Number overflow/underflow", "ERROR");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+                SimpleLogger.Log($"###################Unexpected error: {ex.Message}", "ERROR");
+            }
+        }
+
+       
+        SimpleLogger.Log("Program finished successfully"); // log end
+    }
+}
