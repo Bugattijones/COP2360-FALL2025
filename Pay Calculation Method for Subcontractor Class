@@ -1,0 +1,22 @@
+
+// Robert Winberger - COP2360 Module 10
+// Pay Calculation Method for Subcontractor Class
+
+public class Subcontractor
+{
+    public int Shift { get; set; } // 1 = Day, 2 = Night
+    public decimal HourlyRate { get; set; }
+
+    // Calculates total pay based on hours worked
+    public decimal CalculatePay(int hoursWorked)
+    {
+        decimal pay = HourlyRate * hoursWorked;
+
+        if (Shift == 2) // Night shift
+        {
+            pay = pay + (pay * 0.03m); // Add 3% extra
+        }
+
+        return pay;
+    }
+}
